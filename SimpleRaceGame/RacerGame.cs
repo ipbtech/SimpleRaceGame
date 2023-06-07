@@ -12,12 +12,12 @@ namespace SimpleRaceGame
 {
     public partial class RacerGame : Form
     {
+        private int speedRoad = 10;
+        private int speedPlayerCar = 10;
+        
         public RacerGame()
         {
             InitializeComponent();
-            Timer timer = new Timer();
-            timer.Tick += timer_Tick;
-
         }
 
         private void RacerGame_KeyPress(object sender, KeyPressEventArgs e)
@@ -40,17 +40,33 @@ namespace SimpleRaceGame
 
         private void timer_Tick(object sender, EventArgs e)
         {
-
-            int speed = 10;
-            RoadPictureMain.Top += speed;
-            RoadPictureBack.Top += speed;
-            //RoadPictureBack.Top += (int)(speed * 1.1);
+            RoadPictureMain.Top += speedRoad;
+            RoadPictureBack.Top += speedRoad;
 
             if (RoadPictureMain.Top == this.Height)
             {
                 RoadPictureMain.Top = 0;
                 RoadPictureBack.Top = -this.Height;
-                //RoadPictureBack.Top = (int)(-this.Height * 0.95);
+            }
+        }
+
+        private void RacerGame_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
+            {
+                if (PlayerCar.Left > 150) { PlayerCar.Left -= speedPlayerCar; }
+            }
+            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
+            {
+                if (PlayerCar.Right < 700) { PlayerCar.Left += speedPlayerCar; }
+            }
+            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
+            {
+                if (PlayerCar.Top > 20) { PlayerCar.Top -= speedPlayerCar; }
+            }
+            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
+            {
+                if (PlayerCar.Bottom < 610) { PlayerCar.Top += speedPlayerCar; }
             }
         }
     }

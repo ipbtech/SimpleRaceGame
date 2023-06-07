@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RacerGame));
             this.RoadPictureMain = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.PlayerCar = new System.Windows.Forms.PictureBox();
             this.RoadPictureBack = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureBack)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,16 +48,16 @@
             this.RoadPictureMain.TabIndex = 0;
             this.RoadPictureMain.TabStop = false;
             // 
-            // pictureBox2
+            // PlayerCar
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(423, 494);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(120, 128);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
+            this.PlayerCar.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerCar.Image = ((System.Drawing.Image)(resources.GetObject("PlayerCar.Image")));
+            this.PlayerCar.Location = new System.Drawing.Point(426, 470);
+            this.PlayerCar.Name = "PlayerCar";
+            this.PlayerCar.Size = new System.Drawing.Size(120, 128);
+            this.PlayerCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerCar.TabIndex = 1;
+            this.PlayerCar.TabStop = false;
             // 
             // RoadPictureBack
             // 
@@ -81,7 +81,7 @@
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(840, 650);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.PlayerCar);
             this.Controls.Add(this.RoadPictureMain);
             this.Controls.Add(this.RoadPictureBack);
             this.DoubleBuffered = true;
@@ -89,9 +89,10 @@
             this.Name = "RacerGame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimpleRacerGame";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RacerGame_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RacerGame_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerCar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureBack)).EndInit();
             this.ResumeLayout(false);
 
@@ -100,7 +101,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox RoadPictureMain;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox PlayerCar;
         private System.Windows.Forms.PictureBox RoadPictureBack;
         private System.Windows.Forms.Timer timer;
     }
