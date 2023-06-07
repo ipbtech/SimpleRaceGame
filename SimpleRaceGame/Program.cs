@@ -16,6 +16,7 @@ namespace SimpleRaceGame
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new RacerGame());
         }
     }

@@ -14,17 +14,19 @@ namespace SimpleRaceGame
     {
         private int speedRoad = 10;
         private int speedPlayerCar = 10;
+        private Timer timerGame;
         
         public RacerGame()
         {
             InitializeComponent();
+
         }
 
         private void RacerGame_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
-                timer.Stop();
+                timerGame.Stop();
                 MessageBoxButtons messageBoxButtons = MessageBoxButtons.YesNo;
                 DialogResult dialog = MessageBox.Show("Are you sure want to exit?", "Exit", messageBoxButtons);
                 if (dialog == DialogResult.Yes)
@@ -33,7 +35,7 @@ namespace SimpleRaceGame
                 }
                 else
                 {
-                    timer.Start();
+                    timerGame.Start();
                 }
             }
         }
@@ -68,6 +70,28 @@ namespace SimpleRaceGame
             {
                 if (PlayerCar.Bottom < 610) { PlayerCar.Top += speedPlayerCar; }
             }
+        }
+
+        private void StartGameLabel_Click(object sender, EventArgs e)
+        {
+            WelcomeLabel.Enabled = false;
+            WelcomeLabel.Visible = false;
+
+            StartGameLabel.Enabled = false;
+            StartGameLabel.Visible = false;
+
+            ExitLabel.Enabled = false;
+            ExitLabel.Visible = false;
+
+            timerGame = new Timer();
+            timerGame.Enabled = true;
+            timerGame.Interval = 20;
+            timerGame.Tick += timer_Tick;
+        }
+
+        private void ExitLabel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
