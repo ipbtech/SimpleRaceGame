@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SimpleRaceGame
@@ -14,44 +8,52 @@ namespace SimpleRaceGame
     {
         private int speedRoad = 10;
         private int speedPlayerCar = 10;
+        private int speedEnemyCar = 12;
         private Timer timerGame;
         
-        public RacerGame()
+        public RacerGame() 
         {
             InitializeComponent();
 
+            this.KeyPress += StartGame_KeyPress;            
         }
 
+        private void StartGame_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                StartGameLabel_Click(sender, e);
+                this.KeyPress -= StartGame_KeyPress;
+            }
+        }
+        private void ExitLabel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void RacerGame_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Escape)
             {
-                timerGame.Stop();
-                MessageBoxButtons messageBoxButtons = MessageBoxButtons.YesNo;
-                DialogResult dialog = MessageBox.Show("Are you sure want to exit?", "Exit", messageBoxButtons);
-                if (dialog == DialogResult.Yes)
+                if (timerGame != null)
                 {
-                    this.Close();
+                    timerGame.Stop();
+                    MessageBoxButtons messageBoxButtons = MessageBoxButtons.YesNo;
+                    DialogResult dialog = MessageBox.Show("Are you sure want to exit?", "Exit", messageBoxButtons);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        timerGame.Start();
+                    }
                 }
                 else
                 {
-                    timerGame.Start();
+                    this.Close();
                 }
             }
         }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            RoadPictureMain.Top += speedRoad;
-            RoadPictureBack.Top += speedRoad;
-
-            if (RoadPictureMain.Top == this.Height)
-            {
-                RoadPictureMain.Top = 0;
-                RoadPictureBack.Top = -this.Height;
-            }
-        }
-
         private void RacerGame_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
@@ -60,7 +62,7 @@ namespace SimpleRaceGame
             }
             else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
             {
-                if (PlayerCar.Right < 700) { PlayerCar.Left += speedPlayerCar; }
+                if (PlayerCar.Right < 690) { PlayerCar.Left += speedPlayerCar; }
             }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
             {
@@ -69,6 +71,43 @@ namespace SimpleRaceGame
             else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
             {
                 if (PlayerCar.Bottom < 610) { PlayerCar.Top += speedPlayerCar; }
+            }
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            RoadPictureMain.Top += speedRoad;
+            RoadPictureBack.Top += speedRoad;
+
+            EnemyCar1.Top += speedEnemyCar;
+            EnemyCar2.Top += speedEnemyCar;
+
+            if (RoadPictureMain.Top == this.Height)
+            {
+                RoadPictureMain.Top = 0;
+                RoadPictureBack.Top = -this.Height;
+            }
+            if (EnemyCar1.Top >= (int)this.Height * 1.1) 
+            { 
+                EnemyCar1.Top = -150;
+                EnemyCar1.Left = new Random().Next(150, 650);
+            }
+            if (EnemyCar2.Top >= (int)this.Height * 1.1) 
+            { 
+                EnemyCar2.Top = -300;
+                EnemyCar2.Left = new Random().Next(150, 650);
+            }
+
+            if (PlayerCar.Bounds.IntersectsWith(EnemyCar1.Bounds))
+            {
+                timerGame.Stop();
+                this.KeyDown -= RacerGame_KeyDown;
+                CrashEvent(EnemyCar1.Bounds);
+            }
+            if (PlayerCar.Bounds.IntersectsWith(EnemyCar2.Bounds))
+            {
+                timerGame.Stop();
+                this.KeyDown -= RacerGame_KeyDown;
+                CrashEvent(EnemyCar2.Bounds);
             }
         }
 
@@ -87,11 +126,17 @@ namespace SimpleRaceGame
             timerGame.Enabled = true;
             timerGame.Interval = 20;
             timerGame.Tick += timer_Tick;
+
+            this.KeyPress -= StartGame_KeyPress;
         }
 
-        private void ExitLabel_Click(object sender, EventArgs e)
+        public void CrashEvent(Rectangle rec)
         {
-            this.Close();
+            Rectangle recCar = PlayerCar.Bounds;
+            recCar.Intersect(rec);
+
+            Point point = new Point(recCar.X - CrashPicture.Width/2, recCar.Y - CrashPicture.Height / 2);
+            CrashPicture.Location = point;
         }
     }
 }

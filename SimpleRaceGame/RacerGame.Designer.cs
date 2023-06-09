@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RacerGame));
             this.PlayerCar = new System.Windows.Forms.PictureBox();
             this.RoadPictureBack = new System.Windows.Forms.PictureBox();
@@ -36,18 +35,24 @@
             this.WelcomeLabel = new System.Windows.Forms.Label();
             this.StartGameLabel = new System.Windows.Forms.Label();
             this.ExitLabel = new System.Windows.Forms.Label();
+            this.EnemyCar1 = new System.Windows.Forms.PictureBox();
+            this.EnemyCar2 = new System.Windows.Forms.PictureBox();
+            this.CrashPicture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyCar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyCar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CrashPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // PlayerCar
             // 
             this.PlayerCar.BackColor = System.Drawing.Color.Transparent;
             this.PlayerCar.Image = ((System.Drawing.Image)(resources.GetObject("PlayerCar.Image")));
-            this.PlayerCar.Location = new System.Drawing.Point(426, 470);
+            this.PlayerCar.Location = new System.Drawing.Point(448, 497);
             this.PlayerCar.Name = "PlayerCar";
-            this.PlayerCar.Size = new System.Drawing.Size(120, 128);
+            this.PlayerCar.Size = new System.Drawing.Size(80, 128);
             this.PlayerCar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PlayerCar.TabIndex = 1;
             this.PlayerCar.TabStop = false;
@@ -111,6 +116,37 @@
             this.ExitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ExitLabel.Click += new System.EventHandler(this.ExitLabel_Click);
             // 
+            // EnemyCar1
+            // 
+            this.EnemyCar1.BackColor = System.Drawing.Color.Transparent;
+            this.EnemyCar1.Image = ((System.Drawing.Image)(resources.GetObject("EnemyCar1.Image")));
+            this.EnemyCar1.Location = new System.Drawing.Point(184, -150);
+            this.EnemyCar1.Name = "EnemyCar1";
+            this.EnemyCar1.Size = new System.Drawing.Size(80, 128);
+            this.EnemyCar1.TabIndex = 6;
+            this.EnemyCar1.TabStop = false;
+            // 
+            // EnemyCar2
+            // 
+            this.EnemyCar2.BackColor = System.Drawing.Color.Transparent;
+            this.EnemyCar2.Image = ((System.Drawing.Image)(resources.GetObject("EnemyCar2.Image")));
+            this.EnemyCar2.Location = new System.Drawing.Point(567, -300);
+            this.EnemyCar2.Name = "EnemyCar2";
+            this.EnemyCar2.Size = new System.Drawing.Size(80, 128);
+            this.EnemyCar2.TabIndex = 7;
+            this.EnemyCar2.TabStop = false;
+            // 
+            // CrashPicture
+            // 
+            this.CrashPicture.BackColor = System.Drawing.Color.Transparent;
+            this.CrashPicture.Image = ((System.Drawing.Image)(resources.GetObject("CrashPicture.Image")));
+            this.CrashPicture.Location = new System.Drawing.Point(523, -420);
+            this.CrashPicture.Name = "CrashPicture";
+            this.CrashPicture.Size = new System.Drawing.Size(90, 80);
+            this.CrashPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CrashPicture.TabIndex = 8;
+            this.CrashPicture.TabStop = false;
+            // 
             // RacerGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,6 +154,9 @@
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(840, 650);
+            this.Controls.Add(this.CrashPicture);
+            this.Controls.Add(this.EnemyCar2);
+            this.Controls.Add(this.EnemyCar1);
             this.Controls.Add(this.ExitLabel);
             this.Controls.Add(this.StartGameLabel);
             this.Controls.Add(this.WelcomeLabel);
@@ -134,6 +173,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyCar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnemyCar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CrashPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,6 +189,9 @@
         private System.Windows.Forms.Label WelcomeLabel;
         private System.Windows.Forms.Label StartGameLabel;
         private System.Windows.Forms.Label ExitLabel;
+        private System.Windows.Forms.PictureBox EnemyCar1;
+        private System.Windows.Forms.PictureBox EnemyCar2;
+        private System.Windows.Forms.PictureBox CrashPicture;
     }
 }
 
