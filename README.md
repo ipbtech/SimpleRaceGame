@@ -3,7 +3,7 @@ Racing game on Windows Forms, made by the fun
 
 ## Usage technologies
 1. .NET Framework 4.8
-2. WinFroms
+2. WinForms
 
 ## Interface
 
