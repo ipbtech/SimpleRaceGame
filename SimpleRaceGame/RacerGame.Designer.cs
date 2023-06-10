@@ -38,12 +38,17 @@
             this.EnemyCar1 = new System.Windows.Forms.PictureBox();
             this.EnemyCar2 = new System.Windows.Forms.PictureBox();
             this.CrashPicture = new System.Windows.Forms.PictureBox();
+            this.CoinPicture = new System.Windows.Forms.PictureBox();
+            this.CoinsValueLabel = new System.Windows.Forms.Label();
+            this.GameOverLabel = new System.Windows.Forms.Label();
+            this.RestartLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerCar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RoadPictureMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyCar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyCar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CrashPicture)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CoinPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // PlayerCar
@@ -60,7 +65,7 @@
             // RoadPictureBack
             // 
             this.RoadPictureBack.Image = ((System.Drawing.Image)(resources.GetObject("RoadPictureBack.Image")));
-            this.RoadPictureBack.Location = new System.Drawing.Point(0, -630);
+            this.RoadPictureBack.Location = new System.Drawing.Point(0, -650);
             this.RoadPictureBack.Name = "RoadPictureBack";
             this.RoadPictureBack.Size = new System.Drawing.Size(840, 650);
             this.RoadPictureBack.TabIndex = 2;
@@ -78,10 +83,10 @@
             // WelcomeLabel
             // 
             this.WelcomeLabel.AutoSize = true;
-            this.WelcomeLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.WelcomeLabel.BackColor = System.Drawing.Color.RoyalBlue;
             this.WelcomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.WelcomeLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.WelcomeLabel.Location = new System.Drawing.Point(266, 167);
+            this.WelcomeLabel.Location = new System.Drawing.Point(264, 167);
             this.WelcomeLabel.Name = "WelcomeLabel";
             this.WelcomeLabel.Size = new System.Drawing.Size(324, 78);
             this.WelcomeLabel.TabIndex = 3;
@@ -91,7 +96,7 @@
             // StartGameLabel
             // 
             this.StartGameLabel.AutoSize = true;
-            this.StartGameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.StartGameLabel.BackColor = System.Drawing.Color.RoyalBlue;
             this.StartGameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.StartGameLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.StartGameLabel.Location = new System.Drawing.Point(323, 301);
@@ -105,7 +110,7 @@
             // ExitLabel
             // 
             this.ExitLabel.AutoSize = true;
-            this.ExitLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.ExitLabel.BackColor = System.Drawing.Color.RoyalBlue;
             this.ExitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ExitLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ExitLabel.Location = new System.Drawing.Point(387, 359);
@@ -147,6 +152,61 @@
             this.CrashPicture.TabIndex = 8;
             this.CrashPicture.TabStop = false;
             // 
+            // CoinPicture
+            // 
+            this.CoinPicture.BackColor = System.Drawing.Color.Transparent;
+            this.CoinPicture.Image = ((System.Drawing.Image)(resources.GetObject("CoinPicture.Image")));
+            this.CoinPicture.Location = new System.Drawing.Point(460, -650);
+            this.CoinPicture.Name = "CoinPicture";
+            this.CoinPicture.Size = new System.Drawing.Size(50, 50);
+            this.CoinPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.CoinPicture.TabIndex = 9;
+            this.CoinPicture.TabStop = false;
+            // 
+            // CoinsValueLabel
+            // 
+            this.CoinsValueLabel.AutoSize = true;
+            this.CoinsValueLabel.BackColor = System.Drawing.Color.RoyalBlue;
+            this.CoinsValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CoinsValueLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.CoinsValueLabel.Location = new System.Drawing.Point(12, 9);
+            this.CoinsValueLabel.Name = "CoinsValueLabel";
+            this.CoinsValueLabel.Size = new System.Drawing.Size(0, 37);
+            this.CoinsValueLabel.TabIndex = 10;
+            this.CoinsValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CoinsValueLabel.Visible = false;
+            // 
+            // GameOverLabel
+            // 
+            this.GameOverLabel.AutoSize = true;
+            this.GameOverLabel.BackColor = System.Drawing.Color.RoyalBlue;
+            this.GameOverLabel.Enabled = false;
+            this.GameOverLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GameOverLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.GameOverLabel.Location = new System.Drawing.Point(322, 187);
+            this.GameOverLabel.Name = "GameOverLabel";
+            this.GameOverLabel.Size = new System.Drawing.Size(206, 39);
+            this.GameOverLabel.TabIndex = 11;
+            this.GameOverLabel.Text = "Game Over";
+            this.GameOverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.GameOverLabel.Visible = false;
+            // 
+            // RestartLabel
+            // 
+            this.RestartLabel.AutoSize = true;
+            this.RestartLabel.BackColor = System.Drawing.Color.RoyalBlue;
+            this.RestartLabel.Enabled = false;
+            this.RestartLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RestartLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.RestartLabel.Location = new System.Drawing.Point(368, 301);
+            this.RestartLabel.Name = "RestartLabel";
+            this.RestartLabel.Size = new System.Drawing.Size(110, 31);
+            this.RestartLabel.TabIndex = 12;
+            this.RestartLabel.Text = "Restart";
+            this.RestartLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.RestartLabel.Visible = false;
+            this.RestartLabel.Click += new System.EventHandler(this.RestartLabel_Click);
+            // 
             // RacerGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,15 +214,19 @@
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(840, 650);
+            this.Controls.Add(this.GameOverLabel);
+            this.Controls.Add(this.WelcomeLabel);
+            this.Controls.Add(this.RestartLabel);
+            this.Controls.Add(this.CoinsValueLabel);
+            this.Controls.Add(this.CoinPicture);
             this.Controls.Add(this.CrashPicture);
             this.Controls.Add(this.EnemyCar2);
             this.Controls.Add(this.EnemyCar1);
             this.Controls.Add(this.ExitLabel);
             this.Controls.Add(this.StartGameLabel);
-            this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.PlayerCar);
-            this.Controls.Add(this.RoadPictureMain);
             this.Controls.Add(this.RoadPictureBack);
+            this.Controls.Add(this.RoadPictureMain);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RacerGame";
@@ -176,6 +240,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.EnemyCar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnemyCar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CrashPicture)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CoinPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +257,10 @@
         private System.Windows.Forms.PictureBox EnemyCar1;
         private System.Windows.Forms.PictureBox EnemyCar2;
         private System.Windows.Forms.PictureBox CrashPicture;
+        private System.Windows.Forms.PictureBox CoinPicture;
+        private System.Windows.Forms.Label CoinsValueLabel;
+        private System.Windows.Forms.Label GameOverLabel;
+        private System.Windows.Forms.Label RestartLabel;
     }
 }
 

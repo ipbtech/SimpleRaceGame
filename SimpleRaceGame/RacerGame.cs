@@ -6,24 +6,37 @@ namespace SimpleRaceGame
 {
     public partial class RacerGame : Form
     {
-        private int speedRoad = 10;
+        private int speedRoad = 12;
         private int speedPlayerCar = 10;
         private int speedEnemyCar = 12;
+        private int speedCoinMoves = 12;
+        private int coinsAmount = 0;
         private Timer timerGame;
         
         public RacerGame() 
         {
             InitializeComponent();
 
-            this.KeyPress += StartGame_KeyPress;            
-        }
+            timerGame = new Timer();
+            timerGame.Enabled = true;
+            timerGame.Interval = 20;
 
+            this.KeyPress += StartGame_KeyPress;
+        }
         private void StartGame_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
                 StartGameLabel_Click(sender, e);
                 this.KeyPress -= StartGame_KeyPress;
+            }
+        }
+        private void RestartGame_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                RestartLabel_Click(sender, e);
+                this.KeyPress -= RestartGame_KeyPress;
             }
         }
         private void ExitLabel_Click(object sender, EventArgs e)
@@ -64,28 +77,36 @@ namespace SimpleRaceGame
             {
                 if (PlayerCar.Right < 690) { PlayerCar.Left += speedPlayerCar; }
             }
-            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
-            {
-                if (PlayerCar.Top > 20) { PlayerCar.Top -= speedPlayerCar; }
-            }
-            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
-            {
-                if (PlayerCar.Bottom < 610) { PlayerCar.Top += speedPlayerCar; }
-            }
+            //else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
+            //{
+            //    if (PlayerCar.Top > 20) { PlayerCar.Top -= speedPlayerCar; }
+            //}
+            //else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
+            //{
+            //    if (PlayerCar.Bottom < 610) { PlayerCar.Top += speedPlayerCar; }
+            //}
         }
         private void timer_Tick(object sender, EventArgs e)
         {
+            #region Add dynamic to pictures
             RoadPictureMain.Top += speedRoad;
             RoadPictureBack.Top += speedRoad;
 
             EnemyCar1.Top += speedEnemyCar;
             EnemyCar2.Top += speedEnemyCar;
 
-            if (RoadPictureMain.Top == this.Height)
+            CoinPicture.Top += speedCoinMoves;
+            #endregion
+
+            #region Background moving
+            if (RoadPictureMain.Top >= this.Height)
             {
                 RoadPictureMain.Top = 0;
                 RoadPictureBack.Top = -this.Height;
             }
+            #endregion
+
+            #region EnemyCars moving
             if (EnemyCar1.Top >= (int)this.Height * 1.1) 
             { 
                 EnemyCar1.Top = -150;
@@ -96,21 +117,41 @@ namespace SimpleRaceGame
                 EnemyCar2.Top = -300;
                 EnemyCar2.Left = new Random().Next(150, 650);
             }
+            #endregion
 
+            #region Coins moving and intersects
+            if (CoinPicture.Top >= this.Height + CoinPicture.Height)
+            {
+                CoinPicture.Top = -350;
+                CoinPicture.Left = new Random().Next(150, 650);
+            }
+            if (PlayerCar.Bounds.IntersectsWith(CoinPicture.Bounds))
+            {
+                CoinPicture.Top = -350;
+                CoinPicture.Left = new Random().Next(150, 650);
+
+                coinsAmount += 1;
+                CoinsValueLabel.Text = $"Coins: {coinsAmount}";
+            }
+            #endregion
+
+            #region Crash cars events
             if (PlayerCar.Bounds.IntersectsWith(EnemyCar1.Bounds))
             {
                 timerGame.Stop();
                 this.KeyDown -= RacerGame_KeyDown;
                 CrashEvent(EnemyCar1.Bounds);
+                GameOverAction();
             }
             if (PlayerCar.Bounds.IntersectsWith(EnemyCar2.Bounds))
             {
                 timerGame.Stop();
                 this.KeyDown -= RacerGame_KeyDown;
                 CrashEvent(EnemyCar2.Bounds);
+                GameOverAction();
             }
+            #endregion
         }
-
         private void StartGameLabel_Click(object sender, EventArgs e)
         {
             WelcomeLabel.Enabled = false;
@@ -122,21 +163,62 @@ namespace SimpleRaceGame
             ExitLabel.Enabled = false;
             ExitLabel.Visible = false;
 
-            timerGame = new Timer();
-            timerGame.Enabled = true;
-            timerGame.Interval = 20;
             timerGame.Tick += timer_Tick;
-
             this.KeyPress -= StartGame_KeyPress;
+            this.CoinsValueLabel.Text = $"Coins: {coinsAmount}";
+            this.CoinsValueLabel.Visible = true;
         }
-
-        public void CrashEvent(Rectangle rec)
+        private void CrashEvent(Rectangle rec)
         {
             Rectangle recCar = PlayerCar.Bounds;
             recCar.Intersect(rec);
 
             Point point = new Point(recCar.X - CrashPicture.Width/2, recCar.Y - CrashPicture.Height / 2);
             CrashPicture.Location = point;
+        }
+        private void GameOverAction()
+        {
+            GameOverLabel.Enabled = true;
+            GameOverLabel.Visible = true;
+
+            timerGame.Tick -= timer_Tick;
+            this.KeyPress += RestartGame_KeyPress;
+
+            RestartLabel.Enabled = true;
+            RestartLabel.Visible = true;
+
+            ExitLabel.Enabled = true;
+            ExitLabel.Visible = true;
+        }
+
+        private void RestartLabel_Click(object sender, EventArgs e)
+        {
+            coinsAmount = 0;
+            CoinsValueLabel.Text = $"Coins: {coinsAmount}";
+
+            #region Return source position of Pictures
+            RoadPictureMain.Top = 0;
+            RoadPictureBack.Top = -this.Height;
+
+            EnemyCar1.Top = -150;
+            EnemyCar2.Top = -300;
+            CoinPicture.Top = -350;
+            CrashPicture.Top = -650;
+            #endregion
+
+            timerGame.Tick += timer_Tick;
+            timerGame.Start();
+
+            this.KeyDown += RacerGame_KeyDown;
+
+            GameOverLabel.Enabled = false;
+            GameOverLabel.Visible = false;
+            
+            RestartLabel.Enabled = false;
+            RestartLabel.Visible = false;
+
+            ExitLabel.Enabled = false;
+            ExitLabel.Visible = false;
         }
     }
 }
